@@ -8,7 +8,7 @@ type WSResults = {
 	title: string;
 	review: string;
 	imageUrl: string;
-  prodUrl: string;
+  	prodUrl: string;
 };
 
 export default function Home() {
@@ -46,7 +46,7 @@ export default function Home() {
 					value={searchPrompt}
 					onChange={(e) => setSearchPrompt(e.target.value)}
 					type="text"
-					placeholder="Product to be searched..."
+					placeholder="ex: Saucony Speed 3"
 					className="px-2 bg-transparent border rounded-md text-white outline-none"
 				/>
 				<button
@@ -65,19 +65,20 @@ export default function Home() {
 						key={i}
 						className="text-white bg-zinc-800 p-2 rounded-lg"
 					>
-						<h1 className="truncate text-2xl">{prod.title}</h1>
-						<div className="relative h-[200px] w-full">
+						<h1 className="truncate text-base">{prod.title}</h1>
+						<div className="relative w-full">
 							<Image
                 src={prod.imageUrl}
                 alt={prod.title}
-                className="object-cover"
-                fill
+                className="object-contain"
+                width={200}
+				height={200}
               />
 						</div>
-						<div className="flex m-2 justify-between">
+						<div className="flex flex-col m-2 justify-between">
 							<p>Reviews : {prod.review}</p>
 							<p>Price : {prod.price}</p>
-              <a href={prod.prodUrl} target="_blank">Link</a>
+              				<a href={prod.prodUrl} target="_blank" className="border text-center mx-6 rounded bg-slate-300 text-black hover:bg-transparent hover:text-white cursor-pointer">Link</a>
 						</div>
 					</div>
 				))}

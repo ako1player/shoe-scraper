@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     if(!userSearch){
         return NextResponse.json("Provide a seach prompt")
     }
-
+    const affiliateTag = "ako1player-20";
     let browser;
     try{
         browser = await puppeteer.launch({headless: "new"});
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
 			})
 			.get();
 
-		const reviews = $("span.a-size-base.s-underline-text")
+		const reviews = $("span.a-icon-alt")
 			.map((index, element) => {
 				return $(element).text();
 			})
@@ -47,7 +47,12 @@ export async function POST(req: Request) {
 
         const prodUrl = $("a.a-link-normal.s-no-outline")
             .map((index, element) =>{
-                return "https://www.amazon.com" +$(element).attr("href")
+                const relativeUrl = $(element).attr("href") as string;
+                const absoluteUrl = new URL(relativeUrl, "https://www.amazon.com").toString();
+                // Append the affiliate tag as a query parameter
+                const urlWithAffiliate = new URL(absoluteUrl);
+                urlWithAffiliate.searchParams.append("tag", affiliateTag);
+                return urlWithAffiliate.toString();
             })
             .get()
 
