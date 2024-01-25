@@ -20,7 +20,7 @@ export default function Home() {
 		event.preventDefault();
 		setIsLoading(true);
 
-		const res = await fetch("/amazonscrape", {
+		const res = await fetch("/dswscrape", {
 			method: "POST",
 			body: JSON.stringify({ searchPrompt }),
 			headers: {
@@ -29,7 +29,7 @@ export default function Home() {
 		});
 		const { products } = await res.json();
 
-		console.log(products);
+		console.log("_______", products);
 		setSearchResults(products);
 		console.log(searchResults);
 		setSearchPrompt("");
@@ -68,12 +68,12 @@ export default function Home() {
 						<h1 className="truncate text-base">{prod.title}</h1>
 						<div className="relative w-full">
 							<Image
-                src={prod.imageUrl}
-                alt={prod.title}
-                className="object-contain"
-                width={200}
-				height={200}
-              />
+								src={prod.imageUrl}
+								alt={prod.title}
+								className="object-contain"
+								width={200}
+								height={200}
+							/>
 						</div>
 						<div className="flex flex-col m-2 justify-between">
 							<p>Reviews : {prod.review}</p>
